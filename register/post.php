@@ -30,7 +30,13 @@ $errors = array();
         $errors['detail'] = 'length';
           # code...
         }
-      }
+        $file_name = $_FILES['input_img_name']['name'];
+        if(!empty($fale_name)){
+
+        }else{
+            $errors['img_name'] = 'blank';
+        }
+    }
     
 
 
@@ -119,6 +125,7 @@ $errors = array();
 <div class="form-group">
 <label for="img_name">写真</label>
 <input type="file" name="input_img_name" id="img_name">
+<?php if(isset($errors['img_name']) && $errors['img_name'] == 'blank'){?><p class="text-danger">画像を選択して下さい。</p><?php }?>
 </div><br>
 <input type="submit" class="btn btn-primary" value="投稿">
 </form>
