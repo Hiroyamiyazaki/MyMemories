@@ -5,13 +5,20 @@ $errors = array();
 
 
     if (!empty($_POST)){
-      $name = $_POST['title'];
+      $title = $_POST['title'];
       $date = $_POST['date'];
       $detail = $_POST['detail'];
 
+      $county = strlen($title);
+      $count = strlen($detail);
+
 //ユーザー名のからのチェック
-      if($name==''){
-        $errors['name'] = 'blank';
+      if($title==''){
+        $errors['title'] = 'blank';
+      }
+      elseif ($county > 24) {
+        $errors['title'] = 'length';
+          # code...
       }
       if($date == ''){
         $errors['date'] = 'blank';
@@ -19,8 +26,12 @@ $errors = array();
       if($detail ==''){
         $errors['detail'] = 'blank';
       }
-
-    }
+      elseif ($count > 140) {
+        $errors['detail'] = 'length';
+          # code...
+        }
+      }
+    
 
 
 
@@ -84,8 +95,10 @@ $errors = array();
 <div class="form-group">
 <label for="task">タイトル</label>
 <input name="title" class="form-control">
-<?php if(isset($errors['name']) && $errors['name'] == 'blank'){ ?>
+<?php if(isset($errors['title']) && $errors['title'] == 'blank'){ ?>
 <p class="text-danger">タイトル名を入力して下さい。</p><?php }?>
+<?php if(isset($errors['title']) && $errors['title'] == 'length'){?>
+<p class="text-danger">タイトルは24文字以内にして下さい。</p><?php }?>
 </div>
 <div class="form-group">
 <label for="date">日程</label>
@@ -99,6 +112,9 @@ $errors = array();
 <textarea name="detail" class="form-control" rows="3"></textarea><br>
 <?php if(isset($errors['detail']) && $errors['detail'] == 'blank'){?>
 <a class="text-danger">詳細を入力して下さい。</a><?php } ?>
+<?php if(isset($errors['detail']) && $errors['detail'] == 'length'){?>
+<p class="text-danger">詳細は140文字以内にして下さい。</p><?php }?>
+
 </div>
 <div class="form-group">
 <label for="img_name">写真</label>
